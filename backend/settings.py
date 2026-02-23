@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "corsheaders",  
 
     #third-party
     "rest_framework",
@@ -59,6 +60,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware", 
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -162,3 +164,16 @@ STATICFILES_DIRS = [
 
 # serve static in production
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+# CORS configuration
+if DEBUG:
+    # allow Codespaces preview domains and localhost during development
+    CORS_ALLOWED_ORIGIN_REGEXES = [
+        r"^https://.*\.github\.dev$",  # Codespaces
+        r"^http://localhost(:\d+)?$",
+        r"^http://127\.0\.0\.1(:\d+)?$",
+    ]
+else:
+    # in production, allow only the frontend domain provided via env var
+    FRONTEND_URL = os.getenv("FRONTEND_URL")
+    CORS_ALLOWED_ORIGINS = [FRONTEND_URL] if FRONTEND_URL else []
