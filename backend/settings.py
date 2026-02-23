@@ -25,17 +25,6 @@ from datetime import timedelta
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# settings.py (near other STATIC settings)
-STATIC_URL = '/static/'
-
-# collectstatic will place all static files here
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-
-# optional: additional static folders (dev only)
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-]
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
@@ -161,4 +150,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = "static/"
+# Static files
+STATIC_URL = "/static/"
+
+# where collectstatic will place files
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
+# serve static in production
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
