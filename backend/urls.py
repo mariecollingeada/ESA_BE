@@ -23,12 +23,9 @@ router = routers.DefaultRouter()
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-
+    path("admin/", admin.site.urls),
     # Domain API
-    path('api/', include(router.urls)),
-
+    path("api/", include(router.urls)),
     # Authentication API
-    path('api/auth/', include('authentication.urls')),
+    path("api/auth/", include("authentication.urls")),
 ]
-

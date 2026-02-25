@@ -4,20 +4,21 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+
 class Profile(models.Model):
-    ROLE_REPORTER = 'REPORTER'
-    ROLE_TECHNICIAN = 'TECHNICIAN'
-    ROLE_MANAGER = 'MANAGER'
-    ROLE_ADMIN = 'ADMIN'
+    ROLE_REPORTER = "REPORTER"
+    ROLE_TECHNICIAN = "TECHNICIAN"
+    ROLE_MANAGER = "MANAGER"
+    ROLE_ADMIN = "ADMIN"
 
     ROLE_CHOICES = [
-        (ROLE_REPORTER, 'Reporter'),
-        (ROLE_TECHNICIAN, 'Technician'),
-        (ROLE_MANAGER, 'Manager'),
-        (ROLE_ADMIN, 'Admin'),
+        (ROLE_REPORTER, "Reporter"),
+        (ROLE_TECHNICIAN, "Technician"),
+        (ROLE_MANAGER, "Manager"),
+        (ROLE_ADMIN, "Admin"),
     ]
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default=ROLE_REPORTER)
 
     def __str__(self):
